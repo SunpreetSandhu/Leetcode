@@ -1,18 +1,18 @@
 '''
-intuition: To find the 2 numbers that sum to the target, we can essentially look backwards using a hashmap. We can do target - current number to find what that 2nd number will be, then if its in the hashmap as a key we can return the 2 indexes otherwise we will continue adding the current number and index as key value pairs in the hashmap. The lookup will be O(1) as we just find the key. 
+Intuition: We need to find 2 indices in an array where the 2 values sum to the given target. A brute force way would be to iterate over all pairs being O(n^2). Instead we can use a hashmap, where the key will be the number itself and the value of the index, since hashmap lookups are O(1).
 
-approach:
-1) Initialize an empty hashmap to store the numbers and their corresponding indecies as key value pairs
-2) Iterate through the list (dynamic array) nums.
-    a)For each number nums[i] we will calculate its complement target - nums[i] and if the complement is already in the hashmap as a key, we found the 2 numbers and return their indeces [hm[target-nums[i]], i].
-    b)If the complement isnt in the hashmap the curr number nums[i] and its index i is added to the hashmap, and we continue itterating
+Approach:
+1) Define an empty hashmap
+2) Iterate through the array
+    a)The number num2 is target - nums[i]
+    b)If num2 is in our hashmap, return that index and the current nums index
+    c)If num2 is not in the hashmap, we will store nums[i] in our hashmap with the index
 
-Time complexity:
-O(n) as we will have to iterate through the entire list in the worst case
+Time Complexity: O(n) -> Iterating through nums, and performing hashmap lookup which is O(1)
 
-Space complexity:
-O(n) as if we iterate through the whole list, well have to store it in the hm as we go along
+Space Complexity: O(n) -> Hashmap proportionally increases with nums
 '''
+
 class Solution(object):
     def twoSum(self, nums, target):
         """
@@ -20,13 +20,14 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        hm = {}
 
+        hm = {}
         for i in range(len(nums)):
-            if target - nums[i] not in hm:
-                hm[nums[i]] = i 
-            else:
-                return [hm[target-nums[i]], i]
+            num2 = target - nums[i]
+            if num2 in hm:
+                return [hm[num2], i]
+            hm[nums[i]] = i
             
+
 
         
