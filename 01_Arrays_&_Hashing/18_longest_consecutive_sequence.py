@@ -22,8 +22,6 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-
-
         hs = set(nums)
         longest = 0
         for num in nums:
